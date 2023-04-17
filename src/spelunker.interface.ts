@@ -1,7 +1,9 @@
 import { Type } from '@nestjs/common';
 
 export interface SpelunkedTree {
+  id: string;
   name: string;
+  isGlobal: boolean;
   imports: string[];
   exports: string[];
   controllers: string[];

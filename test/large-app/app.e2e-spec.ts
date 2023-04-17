@@ -26,8 +26,9 @@ SpelunkerSuite('Should allow the spelunkerModule to explore', ({ app }) => {
   const output = SpelunkerModule.explore(app);
   exploreOutput.forEach((expected) => {
     is(
-      output.some((outputPart) => {
-        return dequal(outputPart, expected);
+      output.some(({ id: _, ...outputPart }) => {
+        const { id: __, ...restExpected } = expected;
+        return dequal(outputPart, restExpected);
       }),
       true,
     );

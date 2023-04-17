@@ -20,7 +20,9 @@ export class ExplorationModule {
       .filter((module) => module.metatype !== InternalCoreModule)
       .forEach((module) => {
         dependencyMap.push({
+          id: module.id,
           name: module.metatype.name,
+          isGlobal: module.isGlobal,
           imports: this.getImports(module),
           providers: this.getProviders(module),
           controllers: this.getControllers(module),

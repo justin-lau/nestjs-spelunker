@@ -2,14 +2,18 @@ import { DebuggedTree, SpelunkedTree } from '../../src';
 
 export const exploreOutput: SpelunkedTree[] = [
   {
+    id: '001',
     name: 'AppModule',
+    isGlobal: false,
     imports: ['AnimalsModule', 'OgmaCoreModule'],
     providers: {},
     controllers: [],
     exports: [],
   },
   {
+    id: '002',
     name: 'AnimalsModule',
+    isGlobal: false,
     imports: ['CatsModule', 'DogsModule', 'HamstersModule', 'OgmaCoreModule'],
     providers: {
       AnimalsService: {
@@ -20,7 +24,9 @@ export const exploreOutput: SpelunkedTree[] = [
     exports: ['DogsModule'],
   },
   {
+    id: '003',
     name: 'CatsModule',
+    isGlobal: false,
     imports: ['OgmaCoreModule'],
     providers: {
       CatsService: {
@@ -31,7 +37,9 @@ export const exploreOutput: SpelunkedTree[] = [
     exports: [],
   },
   {
+    id: '004',
     name: 'DogsModule',
+    isGlobal: false,
     imports: ['OgmaCoreModule'],
     providers: {
       someString: {
@@ -46,7 +54,9 @@ export const exploreOutput: SpelunkedTree[] = [
     exports: ['DogsService'],
   },
   {
+    id: '005',
     name: 'HamstersModule',
+    isGlobal: false,
     imports: ['OgmaCoreModule'],
     providers: {
       HamstersService: {
