@@ -1,11 +1,21 @@
 import { DebuggedTree, SpelunkedTree } from '../../src';
 
+export const outputNameToIdMap = new Map<string, string>([
+  ['InternalCoreModule', '000'],
+  ['AppModule', '001'],
+  ['AnimalsModule', '002'],
+  ['CatsModule', '003'],
+  ['DogsModule', '004'],
+  ['HamstersModule', '005'],
+  ['OgmaCoreModule', '006'],
+]);
+
 export const exploreOutput: SpelunkedTree[] = [
   {
     id: '001',
     name: 'AppModule',
     isGlobal: false,
-    imports: ['AnimalsModule', 'OgmaCoreModule'],
+    imports: ['002', '006'],
     providers: {},
     controllers: [],
     exports: [],
@@ -14,7 +24,7 @@ export const exploreOutput: SpelunkedTree[] = [
     id: '002',
     name: 'AnimalsModule',
     isGlobal: false,
-    imports: ['CatsModule', 'DogsModule', 'HamstersModule', 'OgmaCoreModule'],
+    imports: ['003', '004', '005', '006'],
     providers: {
       AnimalsService: {
         method: 'value',
@@ -27,7 +37,7 @@ export const exploreOutput: SpelunkedTree[] = [
     id: '003',
     name: 'CatsModule',
     isGlobal: false,
-    imports: ['OgmaCoreModule'],
+    imports: ['006'],
     providers: {
       CatsService: {
         method: 'standard',
@@ -40,7 +50,7 @@ export const exploreOutput: SpelunkedTree[] = [
     id: '004',
     name: 'DogsModule',
     isGlobal: false,
-    imports: ['OgmaCoreModule'],
+    imports: ['006'],
     providers: {
       someString: {
         method: 'value',
@@ -57,7 +67,7 @@ export const exploreOutput: SpelunkedTree[] = [
     id: '005',
     name: 'HamstersModule',
     isGlobal: false,
-    imports: ['OgmaCoreModule'],
+    imports: ['006'],
     providers: {
       HamstersService: {
         method: 'standard',

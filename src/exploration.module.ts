@@ -20,7 +20,7 @@ export class ExplorationModule {
       .filter((module) => module.metatype !== InternalCoreModule)
       .forEach((module) => {
         dependencyMap.push({
-          id: module.id,
+          id: this.getId(module),
           name: module.metatype.name,
           isGlobal: module.isGlobal,
           imports: this.getImports(module),
@@ -32,10 +32,14 @@ export class ExplorationModule {
     return dependencyMap;
   }
 
+  static getId(module: NestModule): string {
+    return module.id;
+  }
+
   private static getImports(module: NestModule): string[] {
     return Array.from(module.imports)
       .filter((module) => module.metatype.name !== InternalCoreModule.name)
-      .map((module) => module.metatype.name);
+      .map((module) => this.getId(module));
   }
 
   private static getProviders(module: NestModule): any {

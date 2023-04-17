@@ -6,17 +6,20 @@ import {
 
 export class GraphingModule {
   static graph(tree: SpelunkedTree[]): SpelunkedNode {
-    const nodeMap = tree.reduce(
-      (map, module) =>
-        map.set(module.name, {
-          dependencies: new Set(),
-          dependents: new Set(),
+    const [nodeMap, nodeIdMap] = tree.reduce(
+      ([map, idMap], module) => {
+        const node = {
+          dependencies: new Set<SpelunkedNode>(),
+          dependents: new Set<SpelunkedNode>(),
           module,
-        }),
-      new Map<string, SpelunkedNode>(),
+        };
+
+        return [map.set(module.name, node), idMap.set(module.id, node)];
+      },
+      [new Map<string, SpelunkedNode>(), new Map<string, SpelunkedNode>()],
     );
 
-    nodeMap.forEach((node) => this.findDependencies(node, nodeMap));
+    nodeMap.forEach((node) => this.findDependencies(node, nodeMap, nodeIdMap));
 
     return this.findRoot(nodeMap);
   }
@@ -28,10 +31,12 @@ export class GraphingModule {
   private static findDependencies(
     node: SpelunkedNode,
     nodeMap: Map<string, SpelunkedNode>,
+    nodeIdMap: Map<string, SpelunkedNode>,
   ): SpelunkedNode[] {
-    return node.module.imports.map((m) => {
-      const dependency = nodeMap.get(m);
-      if (!dependency) throw new Error(`Unable to find ${m}!`);
+    return node.module.imports.map((id) => {
+      const dependency = nodeIdMap.get(id);
+      if (!dependency)
+        throw new Error(`Unable to find import module id: ${id}!`);
 
       node.dependencies.add(dependency);
       dependency.dependents.add(node);
